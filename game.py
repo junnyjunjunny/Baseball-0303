@@ -22,9 +22,14 @@ class Game:
         solved = False
         strikes = 0
         balls = 0
-        for n in range(3):
-            if guess_number[n] == self._question[n]:
-                strikes += 1
+        for g_number in range(3):
+            for q_number in range(3):
+                if g_number == q_number:
+                    if guess_number[g_number] == self._question[q_number]:
+                        strikes += 1
+                else:
+                    if guess_number[g_number] == self._question[q_number]:
+                        balls += 1
         if strikes == 3:
             solved = True
         return GameResult(solved, strikes, balls)
