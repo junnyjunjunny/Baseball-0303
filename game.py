@@ -19,20 +19,19 @@ class Game:
         return self._get_game_result(guess_number)
 
     def _get_game_result(self, guess_number: str) -> GameResult:
-        solved = False
+        if guess_number == self._question:
+            return GameResult(True, 3, 0)
+
         strikes = 0
         balls = 0
         for g_number in range(3):
             for q_number in range(3):
-                if g_number == q_number:
-                    if guess_number[g_number] == self._question[q_number]:
+                if guess_number[g_number] == self._question[q_number]:
+                    if g_number == q_number:
                         strikes += 1
-                else:
-                    if guess_number[g_number] == self._question[q_number]:
+                    else:
                         balls += 1
-        if strikes == 3:
-            solved = True
-        return GameResult(solved, strikes, balls)
+        return GameResult(False, strikes, balls)
 
     def _assert_illegal_value(self, guess_number: str):
         if guess_number is None:
